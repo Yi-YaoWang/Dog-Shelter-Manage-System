@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Bootstrap Theme</title>
+    <script>
+        function Detail(id){
+            window.location.href = "/doge/detail?id=" + id;
+        }
+        function addDoge() {
+            document.getElementById("addDoge").submit();
+        }
+    </script>    
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header id="main-header" class="py-2 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fas fa-pencil-alt"></i> Doge</h1>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown mr-3">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas"></i> <span style="color:white;">Doge</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="/" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Dashboard
+                            </a>
+                            <a href="users" class="dropdown-item">
+                                <i class="fas fa-user-circle "></i> Users
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH -->
+    <section id="search" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+          <a href="/doge/add" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addDogeModal">
+            <i class="fas fa-plus"></i> Add Doge
+          </a>
+        </div>
+                <div class="col-md-6 ml-auto">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Doge..." />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doge -->
+    <section id="doge">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Latest Doge</h4>
+                        </div>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Breed</th>
+                                    <th>Gender</th>
+                                    <th />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0; i< data.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= data[i].id %>
+                                        </td>
+                                        <td>
+                                            <%= data[i].name %>
+                                        </td>
+                                        <td>
+                                            <%= data[i].breed %>
+                                        </td>
+                                        <td>
+                                            <%= data[i].gender %>
+                                        </td>
+                                        <td>
+                                            <button value="Details" class="btn btn-secondary" onclick="Detail('<%= data[i].id %>')">
+                                                <i class="fas fa-angle-double-right"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="lead text-center">
+                        Copyright &copy;
+                        <span id="year"></span> Doge Shelter
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+  <!-- MODALS -->
+
+  <!-- ADD POST MODAL -->
+  <div class="modal fade" id="addDogeModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Doge</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addDoge" action="/doge/add" method="post">
+            <input type="hidden" name="id" value="<%= data[0].id %>" />
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col">
+                      <label for="name"> Name</label>
+                      <input type="text" name="name" class="form-control" value="<%= data[0].name %>" />
+                    </div>
+                    <div class="col">
+                      <label for="breed">Breed:</label>
+                      <input type="text" name="breed" class="form-control" value="<%= data[0].breed %>" />
+                    </div>
+                    <div class="col">
+                      <label for="gender">Gender:</label>
+                      <input type="text" name="gender" class="form-control" value="<%= data[0].gender %>" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col">
+                      <label for="provider"> Provider</label>
+                      <input type="text" name="provider" class="form-control" value="<%= data[0].provider %>" />
+                    </div>
+                    <div class="col">
+                      <label for="adopter"> Adopter</label>
+                      <input type="text" name="adopter" class="form-control" value="<%= data[0].adopter %>" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                      <label for="prov_date"> Provide Date</label>
+                      <input type="date" name="prov_date"  id="prov_date" class="form-control" value="<%= data[0].prov_date %>" />
+                    </div>
+                    <div class="col">
+                      <label for="adop_date">Adoptive Date</label>
+                      <input name="adop_date" type="date" id="adop_date" class="form-control" value="<%= data[0].adop_date %>" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="health_con">Health Condition</label>
+                  <textarea name="health_con" class="form-control" value="<%= data[0].health_con %>">
+                  </textarea>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary"  onclick="addDoge()">Add Doge</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
+    <script>
+        // Get the current year for the copyright
+        $('#year').text(new Date().getFullYear());
+    </script>
+</body>
+
+</html>
